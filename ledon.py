@@ -1,6 +1,7 @@
 #Kevin Hinojosa
 #This serves as a simple LED setup for GPIO usage.
-#run power from 3.3V
+#run power from 3.3V if connected directly
+#otherwise output will con
 #Use a 220 ohm resister --{red red brown gold}--
 # Led long end is +ANode, short is -Cathode
 #USE GPIO pin names
@@ -9,7 +10,7 @@ import RPi.GPIO as GPIO     #this allows us to use General Purpose Input Output 
 import time                     #time allows us to use sleep function
 GPIO.setmode(GPIO.BCM)      #this tells The pi how to read the pins, GPIO.BCM is titles, GPIO.BOARD is 12 34 56 78 starting at top left
 GPIO.setup(18, GPIO.OUT)    #this tells the pi to use this pin as output
-
+GPIO.setup(23, GPIO.OUT)    #this tells the pi to use this pin as output
 
 counter=0
 myBool= True
@@ -17,12 +18,14 @@ myBool= True
 while counter<=5:
     print("counter is ", counter,".")
     GPIO.output(18, True)       #this sets output to True== 1 or False ==0.
+    GPIO.output(23, False)
     print("Led On")
-    time.sleep(1)               #time is in seconds or milli(.150)
+    time.sleep(.5)               #time is in seconds or milli(.150)
 
     GPIO.output(18, False)
+    GPIO.output(23, True)
     print ("Led off")
-    time.sleep(1)
+    time.sleep(.5)
     counter=counter+1
 
 
